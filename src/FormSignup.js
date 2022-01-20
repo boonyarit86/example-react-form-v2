@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "./components/Input";
 import { useForm } from "./hooks/form-hook";
-import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "./utils/validators";
+import { VALIDATOR_EMAIL, VALIDATOR_MAXLENGTH, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "./utils/validators";
 import "./Form.css";
 
 const FormSignup = ({ submitForm }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
 
+  // Initial value
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -24,6 +25,7 @@ const FormSignup = ({ submitForm }) => {
 
   const switchModeHandler = () => {
     if (!isLoginMode) {
+      // Login Mode
       setFormData(
         {
           ...formState.inputs,
@@ -33,6 +35,7 @@ const FormSignup = ({ submitForm }) => {
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
+      // Register Mode
       setFormData(
         {
           ...formState.inputs,
@@ -85,8 +88,8 @@ const FormSignup = ({ submitForm }) => {
         <Input
           id="password"
           element="input"
-          validators={[VALIDATOR_MINLENGTH(6)]}
-          errorText="Please fill this input at least 6 characters"
+          validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(20)]}
+          errorText="Please fill this input at least 6 characters and no longer than 20 characters"
           onInput={inputHandler}
           type="password"
           placeholder="Enter your password"
@@ -97,8 +100,8 @@ const FormSignup = ({ submitForm }) => {
           <Input
             id="password2"
             element="input"
-            validators={[VALIDATOR_MINLENGTH(6)]}
-            errorText="Please fill this input at least 6 characters"
+            validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(20)]}
+            errorText="Please fill this input at least 6 characters and no longer than 20 characters"
             onInput={inputHandler}
             type="password"
             placeholder="Enter your password"

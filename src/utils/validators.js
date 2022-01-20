@@ -27,12 +27,27 @@ export const validate = (value, validators) => {
             isValid = isValid && value.trim().length > 0;
         }
         if (validator.type === VALIDATOR_TYPE_MINLENGTH) {
+            // +value means
+            // This function is for all value
+            // Step 1. Input: 1 => Result: 1 <= 6 = false
+            // Step 2. Input: 12 => Result 2 <= 6 = false
+            // Step 3. Input: 12mypw => Result 6 <= 6 = true
+
             isValid = isValid && value.trim().length >= validator.val;
         }
         if (validator.type === VALIDATOR_TYPE_MAXLENGTH) {
             isValid = isValid && value.trim().length <= validator.val;
         }
         if (validator.type === VALIDATOR_TYPE_MIN) {
+            // +value means
+            // This function is only for number value
+            // The corrcet example is below.
+            // Step 1. Input: 1 => Result: 1 <= 6 = false
+            // Step 2. Input: 12 => Result 12 <= 6 = true
+
+            // The wrong example is below.
+            // Step 1. Input: 1 => Result: 1 <= 6 = false
+            // Step 2. Input: 1g => Result 1g(1+g = Nan) <= 6 = false
             isValid = isValid && +value >= validator.val;
         }
         if (validator.type === VALIDATOR_TYPE_MAX) {

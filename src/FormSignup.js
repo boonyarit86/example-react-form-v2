@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "./components/Input";
 import { useForm } from "./hooks/form-hook";
-import { VALIDATOR_EMAIL, VALIDATOR_MAXLENGTH, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "./utils/validators";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MAXLENGTH,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from "./utils/validators";
 import "./Form.css";
 
 const FormSignup = ({ submitForm }) => {
